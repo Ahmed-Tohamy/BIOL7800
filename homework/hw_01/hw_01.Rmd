@@ -1,1 +1,31 @@
+---
+title: "Ahmed Al-Tohamy"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+
+## Introduction about myself
+
+This is my first homework to introduce myself.
+
+My name is **Ahmed Al-Tohamy**. I hold Bachelor and Master degrees in **BIOTECH** from *Cairo University*.
+
+Currently, I am a *PhD* student at **LSU**.
+
+That is all :) 
+
+```{bash}
+git --version
+```
+
+```{bash}
+R --version
+```
+
+
+
+
 
