@@ -86,7 +86,7 @@ means substitute each NA value with 0
 
 -----------------------------------------------------------------------------------------
 
-3 points) Load the Car Road Tests dataset (in R, run data("mtcars"), ?mtcars), then add a new column named as mpg_2 for the mtcars data frame. You can use if ... else ... or ifelse or any other functions that can get the job done. This new column will categorize mpg into four categories using the thresholds below: 
+Load the Car Road Tests dataset (in R, run data("mtcars"), ?mtcars), then add a new column named as mpg_2 for the mtcars data frame. You can use if ... else ... or ifelse or any other functions that can get the job done. This new column will categorize mpg into four categories using the thresholds below: 
 
 
 Answer:
