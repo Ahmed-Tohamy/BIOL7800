@@ -1,0 +1,59 @@
+---
+title: "homework_3"
+author: "ahmed tohamy"
+date: "10/19/2021"
+output: pdf_document
+---
+
+#Q1
+
+set.seed(12)
+A = matrix(data = runif(n = 1:500), nrow = 50, ncol = 10)
+colnames(A) = paste("lake", 1:10, sep = "_")
+
+#get the mean value for each lack
+#for loop method
+lake_means <- vector(mode = "numeric", length = ncol(A))
+
+for (i in 1:ncol(A)) {
+  lake_means[i] <- mean(A[,i])
+}
+
+names(lake_means)  <- colnames(A)
+lake_means
+
+
+#vectorized function colMeans() method 
+
+colMeans(A)
+
+------------------------------------------------------------
+#Q2
+
+
+
+------------------------------------------------------------
+#Q3
+
+Fibonacci <- numeric(30)
+Fibonacci[1] <- Fibonacci[2] <- 1
+for (i in 3:30) Fibonacci[i] <- Fibonacci[i - 2] + Fibonacci[i - 1]
+print("First 30 Fibonacci numbers:")
+print(Fibonacci)
+
+--------------------------------------------------------------
+#Q4 & Q5
+
+top105 = readLines("http://www.textfiles.com/music/ktop100.txt")
+top105 = top105[-c(64, 65)] # missing No. 54 and 55
+
+top105 <- grep("^\\d\\.?\\d?", top105, value = TRUE)
+
+top105 <- sub("\\..*", " ", top105)
+
+top_105_num <- as.numeric(top105)
+
+n_occur <- data.frame(table(top_105_num))
+n_occur
+
+
