@@ -1,0 +1,149 @@
+---
+title: "hw_05"
+author: "Ahmed Al-Tohamy"
+date: "11/4/2021"
+output: pdf_document
+---
+
+
+```{r}
+##Q1
+# install neonDivData
+devtools::install_github("daijiang/neonDivData")
+
+
+# assign data_plant datafram to x variable
+x = neonDivData::data_plant
+
+#print data_plant datafram
+print(x)
+
+#view the whole data_plant datafram
+View(x)
+
+# look at possible genus names 
+sort(unique(x$taxon_name))
+
+#load stringr package
+library(stringr)
+
+# creat a new column called (genus) that has the first word of (taxon_name) column 
+x$genus <- sub("([A-Za-z]+).*", "\\1", x$taxon_name)
+
+#view the whole data_plant datafram with the new genus column
+View(x)
+
+#creat a new datafram with only genus column
+y <- as.data.frame(x$genus)
+
+#load dplyr package
+library(dplyr)
+
+#print 100 values randamly from genus column
+print(sample_n(y, 100))
+```
+
+```{r}
+##Q2
+# creat a new column called (taxon_name2) that has the first two word of (taxon_name) column 
+x$taxon_name2 <- sub("(\\w+\\s+\\w+).*", "\\1", x$taxon_name)
+
+#view the whole data_plant datafram with the new taxon_name2 column
+View(x)
+
+#creat a new datafram with only taxon_name2 column
+z <- as.data.frame(x$taxon_name2)
+
+#print 100 values randamly from taxon_name2 column
+print(sample_n(z, 100))
+```
+
+```{r}
+##Q3
+#A (n_1)
+#creat a new datafram called (n_1) that sample_area_m2 column has the value 1 
+n_1 <- subset(x, sample_area_m2 == "1")
+
+#in n_1 dataframe, choose only 3 columns that we would use later
+n_1 <- subset(n_1, select = c("sample_area_m2","siteID","taxon_name2"))
+
+#view n_1 dataframe to get visual confirmation of the success of previous 2 steps
+View(n_1)
+
+#check for duplicated rows in n_1 dataframe
+duplicated(n_1)
+
+#remove duplicated rows in n_1 dataframe
+n_1 <- unique(n_1) %>% group_by(siteID) %>% summarise(richness_1m2=n())
+ 
+#view n_1 dataframe
+View(n_1)
+
+#B (n_100)
+#creat a new datafram called (n_10) 
+n_10 <- subset(x, sample_area_m2 %in% c("1", "10"))
+
+#in n_10 dataframe, choose only 3 columns that we would use later
+n_10 <- subset(n_10, select = c("sample_area_m2","siteID","taxon_name2"))
+
+#view n_1 dataframe to get visual confirmation of the success of previous 2 steps
+View(n_10)
+
+#check for duplicated rows in n_10 dataframe
+duplicated(n_10)
+
+#remove duplicated rows in n_10 dataframe
+n_10 <- unique(n_10) %>% group_by(siteID) %>% summarise(richness_10m2=n())
+
+#view n_10 dataframe
+View(n_10)
+
+#C (n_100)
+#creat a new datafram called (n_100) 
+n_100 <- subset(x, sample_area_m2 %in% c("1", "10", "100"))
+
+#in n_100 dataframe, choose only 3 columns that we would use later
+n_100 <- subset(n_100, select = c("sample_area_m2","siteID","taxon_name2"))
+
+#view n_100 dataframe to get visual confirmation of the success of previous 2 steps
+View(n_100)
+
+#check for duplicated rows in n_100 dataframe
+duplicated(n_100)
+
+#remove duplicated rows in n_100 dataframe
+n_100 <- unique(n_100) %>% group_by(siteID) %>% summarise(richness_100m2=n())
+
+#view n_100 dataframe
+View(n_100)
+
+#D (n_all)
+#merge the 3 dataframes (n_1), (n_2), (n_3) to one dataframe called (n_all)
+n_all <- Reduce(merge, list(n_1, n_10, n_100))
+
+#view n_all dataframe
+View(n_all)
+```
+
+```{r}
+#Q4
+#load tidyr package
+library(tidyr)
+
+#transform n_all to a long format dataframe named as n_all_long
+n_all_long <- n_all %>% pivot_longer(!siteID, names_to = "spatial_scale", values_to = "richness")
+
+#view n_all_long
+View(n_all_long)
+```
+
+```{r}
+##Q5
+
+#load ggplot2 package
+library(ggplot2)
+
+#generate the plot
+ggplot(data = n_all_long) + aes(x=spatial_scale, y=richness, group = siteID) + geom_point(size=1) + geom_line() + xlab("Spatial Scales") + ylab(("Species Richness"))+theme_classic()+theme(element_blank())
+```
+

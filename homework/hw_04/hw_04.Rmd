@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 title: "hw_4"
 author: "ahmed tohamy"
 date: "10/28/2021"
@@ -33,3 +38,21 @@ words <- unlist(word_list)
 words <- sort((table(words)), decreasing = TRUE)
 print(words) #Q4 The top 5 words are: R, and, data, with & basics. 
 ```
+
+# Q1 
+
+Here we are reading the webpage into R.
+
+```{r}
+library(rvest)
+library(tidyverse)
+webpage <- "https://introdatasci.dlilab.com/schedule_materials/"
+schedule_df <- webpage %>% read_html() %>% html_table()
+schedule_df <- schedule_df[[1]]
+schedule_df
+```
+
+# Q2 
+
+
+
