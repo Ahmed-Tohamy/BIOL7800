@@ -2,7 +2,10 @@
 title: "hw_05"
 author: "Ahmed Al-Tohamy"
 date: "11/4/2021"
-output: pdf_document
+output:
+  word_document: default
+  html_document:
+    df_print: paged
 ---
 
 
