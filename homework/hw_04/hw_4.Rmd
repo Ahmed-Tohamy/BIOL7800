@@ -1,12 +1,10 @@
 ---
-output:
-  html_document: default
-  pdf_document: default
----
 title: "hw_4"
 author: "ahmed tohamy"
 date: "10/28/2021"
-output: html_document
+output:
+  word_document: default
+  html_document: default
 ---
 
 ```{r}
@@ -16,43 +14,33 @@ library(stringr)
 library(stringi)
 library(dplyr)
 library(tidyr)
+
 webpage <- ("https://introdatasci.dlilab.com/schedule_materials/")
 xpath <- '//*[@id="main"]/table'
+
 table <- webpage %>%
 read_html() %>%
 html_nodes(xpath =  xpath) %>%
 html_table(., fill = TRUE) 
 table <- table[[1]]
 print(table, n =30)  #Q1
+
 table$month <- word(table$Date, 1)
 table$day <- stri_sub(table$Date,-2,-1)
 table$day <-as.numeric(table$day)
 print(table, n=30)  #Q2
+
+
 table_lec <- table %>% group_by(month) %>% summarise(n())
 table_lec_order <- table_lec[order(-table_lec$`n()`),]
 print(table_lec_order)  #Q3
+
 len <- length(ncol(table))
 word_list <-  vector(mode="list", length =  len)
 word_list <- strsplit(table$Topic, split= " ")
 words <- unlist(word_list)
 words <- sort((table(words)), decreasing = TRUE)
+
 print(words) #Q4 The top 5 words are: R, and, data, with & basics. 
 ```
-
-# Q1 
-
-Here we are reading the webpage into R.
-
-```{r}
-library(rvest)
-library(tidyverse)
-webpage <- "https://introdatasci.dlilab.com/schedule_materials/"
-schedule_df <- webpage %>% read_html() %>% html_table()
-schedule_df <- schedule_df[[1]]
-schedule_df
-```
-
-# Q2 
-
-
 

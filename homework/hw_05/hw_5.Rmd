@@ -3,10 +3,10 @@ title: "hw_05"
 author: "Ahmed Al-Tohamy"
 date: "11/4/2021"
 output:
-  pdf_document: default
+  word_document: default
   html_document:
     df_print: paged
-  word_document: default
+  pdf_document: default
 ---
 
 
@@ -14,7 +14,6 @@ output:
 #Q1
 # install neonDivData
 devtools::install_github("daijiang/neonDivData")
-
 
 # assign data_plant datafram to x variable
 x = neonDivData::data_plant
